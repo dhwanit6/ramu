@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Products - Vishwakarma Industries</title>
+    <!-- Material Symbols -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link href="https://fonts.googleapis.com/css2?family=Spline+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <!-- Theme Configuration -->
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#22c55e",
+                        "primary-dark": "#16a34a",
+                        "background": "#f8faf9",
+                        "surface": "#ffffff",
+                        "surface-alt": "#f0f5f2",
+                        "text-primary": "#1a2e23",
+                        "text-secondary": "#4a6358",
+                        "border": "#d4e0d9",
+                    },
+                    fontFamily: {
+                        "display": ["Spline Sans", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+    <style>
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Spline Sans', sans-serif; overflow-x: hidden; }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f0f5f2; }
+        ::-webkit-scrollbar-thumb { background: #22c55e40; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #22c55e80; }
+        .glass {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+        }
+        .glow-hover:hover { box-shadow: 0 0 30px rgba(34, 197, 94, 0.2); }
+        /* Modal styles */
+        .modal-backdrop {
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        .modal-backdrop.active { opacity: 1; visibility: visible; }
+        .modal-content {
+            transform: scale(0.95) translateY(20px);
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+        .modal-backdrop.active .modal-content {
+            transform: scale(1) translateY(0);
+            opacity: 1;
+        }
+        /* Filter tabs */
+        .filter-tab {
+            transition: all 0.3s ease;
+        }
+        .filter-tab.active {
+            background: #22c55e;
+            color: white;
+            border-color: #22c55e;
+        }
+    </style>
+</head>
+<body class="bg-background font-display antialiased text-text-primary">
+    
+    <!-- Fixed Header -->
+    <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-white/95 backdrop-blur-lg shadow-sm" id="main-header">
+        <div class="flex items-center justify-between p-4 md:px-8 lg:px-16">
+            <a href="index.html" class="flex size-10 items-center justify-center rounded-full bg-surface-alt text-text-primary hover:bg-border transition-all duration-300 hover:scale-105 shadow-sm" aria-label="Back">
+                <span class="material-symbols-outlined text-2xl">arrow_back</span>
+            </a>
+            <a href="index.html" class="text-text-primary text-sm font-bold tracking-widest uppercase hover:text-primary transition-all duration-300">Vishwakarma</a>
+            <button class="flex size-10 items-center justify-center rounded-full bg-surface-alt text-text-primary hover:bg-border transition-all duration-300 hover:scale-105 shadow-sm" aria-label="Search" onclick="toggleSearch()">
+                <span class="material-symbols-outlined text-2xl">search</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Hero Banner -->
+    <section class="pt-28 pb-12 bg-surface">
+        <div class="max-w-6xl mx-auto px-4 md:px-8">
+            <div class="text-center">
+                <span class="inline-flex items-center rounded-full bg-primary/10 border border-primary/20 px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-primary mb-4">
+                    Complete Catalog
+                </span>
+                <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-4">
+                    Our <span class="text-primary">Products</span>
+                </h1>
+                <p class="text-text-secondary text-lg max-w-2xl mx-auto">
+                    Explore our complete collection of 16 precision tools designed for professional craftsmen.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Filter Tabs -->
+    <section class="sticky top-[72px] z-40 bg-surface border-b border-border py-4">
+        <div class="max-w-6xl mx-auto px-4 md:px-8">
+            <div class="flex gap-3 overflow-x-auto pb-2 scrollbar-hide">
+                <button class="filter-tab active whitespace-nowrap px-5 py-2.5 rounded-full text-sm font-semibold border border-border" data-category="all">
+                    All Products
+                </button>
+                <button class="filter-tab whitespace-nowrap px-5 py-2.5 rounded-full text-sm font-semibold border border-border bg-surface text-text-secondary hover:bg-surface-alt" data-category="screwdrivers">
+                    Screwdrivers
+                </button>
+                <button class="filter-tab whitespace-nowrap px-5 py-2.5 rounded-full text-sm font-semibold border border-border bg-surface text-text-secondary hover:bg-surface-alt" data-category="goldsmith">
+                    Goldsmith Tools
+                </button>
+                <button class="filter-tab whitespace-nowrap px-5 py-2.5 rounded-full text-sm font-semibold border border-border bg-surface text-text-secondary hover:bg-surface-alt" data-category="accessories">
+                    Accessories
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Grid -->
+    <section class="py-12 bg-surface-alt">
+        <div class="max-w-6xl mx-auto px-4 md:px-8">
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" id="products-grid">
+                <!-- Products will be injected by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Modal -->
+    <div id="product-modal" class="modal-backdrop fixed inset-0 z-[100] flex items-center justify-center p-4">
+        <div class="modal-content bg-surface rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+            <!-- Modal Header -->
+            <div class="relative">
+                <div class="aspect-square sm:aspect-[4/3] bg-surface-alt rounded-t-2xl overflow-hidden flex items-center justify-center p-4">
+                    <img id="modal-image" src="" alt="" class="w-full h-full object-contain">
+                </div>
+                <button onclick="closeModal()" class="absolute top-4 right-4 size-10 flex items-center justify-center rounded-full bg-white/90 hover:bg-white text-text-primary transition-all shadow-lg">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+                <div id="modal-badge" class="absolute top-4 left-4 bg-primary text-white text-xs font-bold px-3 py-1.5 rounded-full uppercase tracking-wider shadow-sm"></div>
+            </div>
+            <!-- Modal Body -->
+            <div class="p-5 sm:p-6 md:p-8">
+                <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 sm:gap-4 mb-4">
+                    <div>
+                        <p id="modal-sku" class="text-primary text-xs font-bold uppercase tracking-wider mb-1"></p>
+                        <h2 id="modal-name" class="text-xl sm:text-2xl md:text-3xl font-bold text-text-primary"></h2>
+                    </div>
+                    <span id="modal-price" class="text-xl sm:text-2xl font-bold text-primary whitespace-nowrap"></span>
+                </div>
+                <p id="modal-description" class="text-text-secondary text-base leading-relaxed mb-6"></p>
+                
+                <!-- Specifications -->
+                <div class="border-t border-border pt-5 sm:pt-6 mb-6">
+                    <h3 class="text-sm font-bold uppercase tracking-wider text-text-secondary mb-4">Specifications</h3>
+                    <div id="modal-specs" class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+                        <!-- Specs injected by JS -->
+                    </div>
+                </div>
+
+                <!-- CTA Buttons -->
+                <div class="flex flex-col sm:flex-row gap-3">
+                    <a id="modal-whatsapp" href="#" target="_blank" class="flex-1 flex h-12 sm:h-14 items-center justify-center gap-2 rounded-xl bg-[#25D366] hover:bg-[#20BA5C] text-white text-sm font-bold uppercase tracking-wide transition-all shadow-md">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                        <span>Enquire on WhatsApp</span>
+                    </a>
+                    <button onclick="closeModal()" class="flex-1 flex h-12 sm:h-14 items-center justify-center gap-2 rounded-xl bg-surface-alt hover:bg-border border border-border text-text-primary text-sm font-bold uppercase tracking-wide transition-all">
+                        <span>Continue Browsing</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-surface border-t border-border py-8">
+        <div class="max-w-6xl mx-auto px-4 md:px-8 text-center">
+            <a href="index.html" class="text-primary font-bold text-lg uppercase tracking-widest mb-4 inline-block hover:opacity-80 transition-opacity">Vishwakarma</a>
+            <p class="text-text-secondary text-sm">
+                © 2024 Vishwakarma Industries. All rights reserved. | Precision Since 1985
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Product Data - Add your 16 products here
+        const products = [
+            {
+                id: 1,
+                sku: "SVI-010",
+                name: "Thin Pinvice Single Mouth",
+                price: "Rs 4500",
+                category: "screwdrivers",
+                badge: "Best Seller",
+                image: "src/images/ram 6.png",
+                description: "Professional-grade thin pinvice designed for precision work. Features a single mouth grip system for secure holding of fine materials.",
+                specs: {
+                    "Material": "Hardened Steel",
+                    "Grip Type": "Single Mouth",
+                    "Use Case": "Watchmaking, Jewelry",
+                    "Warranty": "Lifetime"
+                }
+            },
+            {
+                id: 2,
+                sku: "SVI-013",
+                name: "Heavy Screwdriver Blade V Shape",
+                price: "Rs 6000",
+                category: "screwdrivers",
+                badge: "New Arrival",
+                image: "src/images/ram 2.png",
+                description: "Heavy-duty screwdriver with V-shaped blade for maximum torque. Perfect for demanding industrial applications.",
+                specs: {
+                    "Material": "Chrome Vanadium",
+                    "Blade Type": "V Shape",
+                    "Use Case": "Industrial",
+                    "Warranty": "Lifetime"
+                }
+            },
+            {
+                id: 3,
+                sku: "SVI-012",
+                name: "Plastic Revolving Stand",
+                price: "Rs 1500",
+                category: "accessories",
+                badge: "Popular",
+                image: "src/images/ram 1.png",
+                description: "Convenient revolving stand for organizing your precision tools. Keeps your workspace tidy and tools accessible.",
+                specs: {
+                    "Material": "High-Grade Plastic",
+                    "Rotation": "360°",
+                    "Capacity": "12 Tools",
+                    "Base Type": "Non-slip"
+                }
+            },
+            // Add more products below - copy this template:
+            {
+                id: 4,
+                sku: "SVI-014",
+                name: "Precision Tweezers Set",
+                price: "Rs 2500",
+                category: "goldsmith",
+                badge: "",
+                image: "src/images/ram 1.png",
+                description: "High-precision tweezers for delicate goldsmith work. Anti-magnetic and anti-static properties.",
+                specs: {
+                    "Material": "Stainless Steel",
+                    "Set Count": "6 Pieces",
+                    "Use Case": "Jewelry Making",
+                    "Finish": "Polished"
+                }
+            },
+            {
+                id: 5,
+                sku: "SVI-015",
+                name: "Micro Screwdriver Set",
+                price: "Rs 3200",
+                category: "screwdrivers",
+                badge: "",
+                image: "src/images/ram 6.png",
+                description: "Complete set of micro screwdrivers for electronics and watch repair.",
+                specs: {
+                    "Material": "Hardened Steel",
+                    "Set Count": "8 Pieces",
+                    "Use Case": "Electronics",
+                    "Handle": "Ergonomic"
+                }
+            },
+            {
+                id: 6,
+                sku: "SVI-016",
+                name: "Goldsmith Hammer",
+                price: "Rs 4200",
+                category: "goldsmith",
+                badge: "",
+                image: "src/images/ram 2.png",
+                description: "Precision hammer for gold and silver work with balanced weight distribution.",
+                specs: {
+                    "Material": "Hardened Steel",
+                    "Weight": "150g",
+                    "Use Case": "Goldsmithing",
+                    "Handle": "Wood"
+                }
+            },
+            // Placeholder products - replace with your actual products
+            {
+                id: 7,
+                sku: "SVI-017",
+                name: "Product 7 Name",
+                price: "Rs 0000",
+                category: "screwdrivers",
+                badge: "",
+                image: "src/images/ram 1.png",
+                description: "Product description goes here.",
+                specs: { "Spec 1": "Value", "Spec 2": "Value" }
+            },
+            {
+                id: 8,
+                sku: "SVI-018",
+                name: "Product 8 Name",
+                price: "Rs 0000",
+                category: "goldsmith",
+                badge: "",
+                image: "src/images/ram 2.png",
+                description: "Product description goes here.",
+                specs: { "Spec 1": "Value", "Spec 2": "Value" }
+            },
+            {
+                id: 9,
+                sku: "SVI-019",
+                name: "Product 9 Name",
+                price: "Rs 0000",
+                category: "accessories",
+                badge: "",
+                image: "src/images/ram 6.png",
+                description: "Product description goes here.",
+                specs: { "Spec 1": "Value", "Spec 2": "Value" }
+            },
+            {
+                id: 10,
+                sku: "SVI-020",
+                name: "Product 10 Name",
+                price: "Rs 0000",
+                category: "screwdrivers",
+                badge: "",
+                image: "src/images/ram 1.png",
+                description: "Product description goes here.",
+                specs: { "Spec 1": "Value", "Spec 2": "Value" }
+            },
+            {
+                id: 11,
+                sku: "SVI-021",
+                name: "Product 11 Name",
+                price: "Rs 0000",
+                category: "goldsmith",
+                badge: "",
+                image: "src/images/ram 2.png",
+                description: "Product description goes here.",
+                specs: { "Spec 1": "Value", "Spec 2": "Value" }
+            },
+            {
+                id: 12,
+                sku: "SVI-022",
+                name: "Product 12 Name",
+                price: "Rs 0000",
+                category: "accessories",
+                badge: "",
+                image: "src/images/ram 6.png",
+                description: "Product description goes here.",
+                specs: { "Spec 1": "Value", "Spec 2": "Value" }
+            },
+            {
+                id: 13,
+                sku: "SVI-023",
+                name: "Product 13 Name",
+                price: "Rs 0000",
+                category: "screwdrivers",
+                badge: "",
+                image: "src/images/ram 1.png",
+                description: "Product description goes here.",
+                specs: { "Spec 1": "Value", "Spec 2": "Value" }
+            },
+            {
+                id: 14,
+                sku: "SVI-024",
+                name: "Product 14 Name",
+                price: "Rs 0000",
+                category: "goldsmith",
+                badge: "",
+                image: "src/images/ram 2.png",
+                description: "Product description goes here.",
+                specs: { "Spec 1": "Value", "Spec 2": "Value" }
+            },
+            {
+                id: 15,
+                sku: "SVI-025",
+                name: "Product 15 Name",
+                price: "Rs 0000",
+                category: "accessories",
+                badge: "",
+                image: "src/images/ram 6.png",
+                description: "Product description goes here.",
+                specs: { "Spec 1": "Value", "Spec 2": "Value" }
+            },
+            {
+                id: 16,
+                sku: "SVI-026",
+                name: "Product 16 Name",
+                price: "Rs 0000",
+                category: "screwdrivers",
+                badge: "",
+                image: "src/images/ram 1.png",
+                description: "Product description goes here.",
+                specs: { "Spec 1": "Value", "Spec 2": "Value" }
+            }
+        ];
+
+        // Render products
+        function renderProducts(filter = 'all') {
+            const grid = document.getElementById('products-grid');
+            const filtered = filter === 'all' ? products : products.filter(p => p.category === filter);
+            
+            grid.innerHTML = filtered.map(product => `
+                <div class="group product-card" data-category="${product.category}">
+                    <div class="flex flex-col rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 bg-surface ring-1 ring-border glow-hover h-full">
+                        <div class="relative w-full aspect-square overflow-hidden">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent z-10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                            ${product.badge ? `<div class="absolute top-3 left-3 z-20 bg-primary text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider shadow-sm">${product.badge}</div>` : ''}
+                            <img src="${product.image}" alt="${product.name}" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500">
+                            <button onclick="openModal(${product.id})" class="absolute inset-0 z-10 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                                <span class="size-12 flex items-center justify-center rounded-full bg-white/90 text-text-primary shadow-lg">
+                                    <span class="material-symbols-outlined">visibility</span>
+                                </span>
+                            </button>
+                        </div>
+                        <div class="flex flex-col gap-3 p-5 flex-1">
+                            <div>
+                                <p class="text-primary text-[10px] font-bold uppercase tracking-wider mb-1">${product.sku}</p>
+                                <h3 class="text-text-primary text-base font-bold leading-tight">${product.name}</h3>
+                            </div>
+                            <div class="mt-auto flex items-center justify-between">
+                                <span class="text-text-primary font-bold text-lg">${product.price}</span>
+                                <button onclick="openModal(${product.id})" class="size-10 flex items-center justify-center rounded-full bg-primary hover:bg-primary-dark text-white transition-all shadow-md shadow-primary/20">
+                                    <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Filter tabs
+        document.querySelectorAll('.filter-tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+                renderProducts(this.dataset.category);
+            });
+        });
+
+        // Modal functions
+        function openModal(productId) {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+
+            document.getElementById('modal-image').src = product.image;
+            document.getElementById('modal-image').alt = product.name;
+            document.getElementById('modal-badge').textContent = product.badge || 'Premium';
+            document.getElementById('modal-sku').textContent = product.sku;
+            document.getElementById('modal-name').textContent = product.name;
+            document.getElementById('modal-price').textContent = product.price;
+            document.getElementById('modal-description').textContent = product.description;
+            
+            // Set WhatsApp link with product details
+            const whatsappMessage = `Hi Vishwakarma Industries, I'm interested in: ${product.name} (${product.sku}) - ${product.price}`;
+            document.getElementById('modal-whatsapp').href = `https://wa.me/919876543210?text=${encodeURIComponent(whatsappMessage)}`;
+            
+            const specsHtml = Object.entries(product.specs).map(([key, value]) => `
+                <div class="flex flex-col">
+                    <span class="text-[11px] uppercase tracking-wider text-text-secondary">${key}</span>
+                    <span class="font-semibold text-text-primary">${value}</span>
+                </div>
+            `).join('');
+            document.getElementById('modal-specs').innerHTML = specsHtml;
+
+            document.getElementById('product-modal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            document.getElementById('product-modal').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // Close modal on backdrop click
+        document.getElementById('product-modal').addEventListener('click', function(e) {
+            if (e.target === this) closeModal();
+        });
+
+        // Close modal on Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') closeModal();
+        });
+
+        // Initialize
+        renderProducts();
+</script>
+
+    <!-- Floating WhatsApp Button -->
+    <a href="https://wa.me/919876543210?text=Hi%20Vishwakarma%20Industries%2C%20I%27m%20interested%20in%20your%20precision%20tools" 
+       target="_blank" 
+       class="fixed bottom-6 right-6 z-50 group"
+       aria-label="Chat on WhatsApp">
+        <div class="relative">
+            <div class="absolute inset-0 bg-[#25D366] rounded-full animate-ping opacity-30"></div>
+            <div class="relative w-14 h-14 bg-[#25D366] rounded-full flex items-center justify-center shadow-lg hover:bg-[#20BA5C] transition-all hover:scale-110">
+                <svg class="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                </svg>
+            </div>
+            <div class="absolute right-16 top-1/2 -translate-y-1/2 bg-white px-4 py-2 rounded-lg shadow-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
+                <span class="text-text-primary text-sm font-medium">Chat with us!</span>
+            </div>
+        </div>
+    </a>
+</body>
+</html>
