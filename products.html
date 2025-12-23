@@ -87,7 +87,7 @@
             <a href="index.html" class="flex size-10 items-center justify-center rounded-full bg-surface-alt text-text-primary hover:bg-border transition-all duration-300 hover:scale-105 shadow-sm" aria-label="Back">
                 <span class="material-symbols-outlined text-2xl">arrow_back</span>
             </a>
-            <a href="index.html" class="text-text-primary text-sm font-bold tracking-widest uppercase hover:text-primary transition-all duration-300">Vishwakarma</a>
+            <a href="index.html" class="text-text-primary text-sm font-bold tracking-widest uppercase hover:text-primary transition-all duration-300">Shree Vishwakarma Industries</a>
             <button class="flex size-10 items-center justify-center rounded-full bg-surface-alt text-text-primary hover:bg-border transition-all duration-300 hover:scale-105 shadow-sm" aria-label="Search" onclick="toggleSearch()">
                 <span class="material-symbols-outlined text-2xl">search</span>
             </button>
@@ -111,25 +111,8 @@
         </div>
     </section>
 
-    <!-- Filter Tabs -->
-    <section class="sticky top-[72px] z-40 bg-surface border-b border-border py-4">
-        <div class="max-w-6xl mx-auto px-4 md:px-8">
-            <div class="flex gap-3 overflow-x-auto pb-2 scrollbar-hide">
-                <button class="filter-tab active whitespace-nowrap px-5 py-2.5 rounded-full text-sm font-semibold border border-border" data-category="all">
-                    All Products
-                </button>
-                <button class="filter-tab whitespace-nowrap px-5 py-2.5 rounded-full text-sm font-semibold border border-border bg-surface text-text-secondary hover:bg-surface-alt" data-category="screwdrivers">
-                    Screwdrivers
-                </button>
-                <button class="filter-tab whitespace-nowrap px-5 py-2.5 rounded-full text-sm font-semibold border border-border bg-surface text-text-secondary hover:bg-surface-alt" data-category="goldsmith">
-                    Goldsmith Tools
-                </button>
-                <button class="filter-tab whitespace-nowrap px-5 py-2.5 rounded-full text-sm font-semibold border border-border bg-surface text-text-secondary hover:bg-surface-alt" data-category="accessories">
-                    Accessories
-                </button>
-            </div>
-        </div>
-    </section>
+
+    <!-- Products Grid (filters removed) -->
 
     <!-- Products Grid -->
     <section class="py-12 bg-surface-alt">
@@ -406,14 +389,54 @@
                 image: "src/images/ram 1.png",
                 description: "Product description goes here.",
                 specs: { "Spec 1": "Value", "Spec 2": "Value" }
+            },
+            {
+                id: 999,
+                sku: "COMING-SOON",
+                name: "New Product Coming Soon",
+                price: "",
+                category: "all",
+                badge: "Coming Soon",
+                image: "src/images/ram 1.png", // Use placeholder
+                description: "We are constantly innovating. A new precision tool is in the works.",
+                specs: { "Status": "In Development" }
             }
         ];
 
         // Render products
-        function renderProducts(filter = 'all') {
+        function renderProducts(filter = 'all', searchQuery = '') {
             const grid = document.getElementById('products-grid');
-            const filtered = filter === 'all' ? products : products.filter(p => p.category === filter);
+            let filtered = products;
+
+            // Apply Category Filter
+            if (filter !== 'all') {
+                filtered = filtered.filter(p => p.category === filter);
+            }
+
+            // Apply Search Filter (Fuzzy)
+            if (searchQuery) {
+                // Normalize: lowercase, remove spaces, dashes, underscores
+                const normalizeStr = (str) => str.toLowerCase().replace(/[\s\-_]/g, '');
+                const normalizedQuery = normalizeStr(searchQuery);
+                
+                filtered = filtered.filter(p => 
+                    normalizeStr(p.sku).includes(normalizedQuery) || 
+                    p.name.toLowerCase().includes(searchQuery.toLowerCase().trim()) ||
+                    p.description.toLowerCase().includes(searchQuery.toLowerCase().trim())
+                );
+            }
             
+            if (filtered.length === 0) {
+                 grid.innerHTML = `
+                    <div class="col-span-full py-12 text-center text-text-secondary">
+                        <span class="material-symbols-outlined text-4xl mb-2">search_off</span>
+                        <p>No products found matching "${searchQuery}"</p>
+                        <button onclick="clearSearch()" class="mt-4 text-primary font-bold hover:underline">Clear Search</button>
+                    </div>
+                 `;
+                 return;
+            }
+
             grid.innerHTML = filtered.map(product => `
                 <div class="group product-card" data-category="${product.category}">
                     <div class="flex flex-col rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 bg-surface ring-1 ring-border glow-hover h-full">
@@ -444,61 +467,85 @@
             `).join('');
         }
 
+        function clearSearch() {
+            const url = new URL(window.location);
+            url.searchParams.delete('search');
+            window.history.pushState({}, '', url);
+            renderProducts('all', '');
+            document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+            document.querySelector('[data-category="all"]').classList.add('active');
+        }
+
         // Filter tabs
         document.querySelectorAll('.filter-tab').forEach(tab => {
             tab.addEventListener('click', function() {
+                const searchParams = new URLSearchParams(window.location.search);
+                const currentSearch = searchParams.get('search') || '';
+                
                 document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
                 this.classList.add('active');
-                renderProducts(this.dataset.category);
+                renderProducts(this.dataset.category, currentSearch);
             });
         });
+        
+         // Search toggle function for header button
+        function toggleSearch() {
+             const existingOverlay = document.getElementById('search-overlay');
+             if(existingOverlay) {
+                // Toggle if exists
+                 if (existingOverlay.classList.contains('opacity-0')) {
+                    existingOverlay.classList.remove('opacity-0', 'pointer-events-none');
+                    setTimeout(() => document.getElementById('search-input-overlay').focus(), 100);
+                } else {
+                    existingOverlay.classList.add('opacity-0', 'pointer-events-none');
+                }
+                return;
+             }
 
-        // Modal functions
-        function openModal(productId) {
-            const product = products.find(p => p.id === productId);
-            if (!product) return;
-
-            document.getElementById('modal-image').src = product.image;
-            document.getElementById('modal-image').alt = product.name;
-            document.getElementById('modal-badge').textContent = product.badge || 'Premium';
-            document.getElementById('modal-sku').textContent = product.sku;
-            document.getElementById('modal-name').textContent = product.name;
-            document.getElementById('modal-price').textContent = product.price;
-            document.getElementById('modal-description').textContent = product.description;
-            
-            // Set WhatsApp link with product details
-            const whatsappMessage = `Hi Vishwakarma Industries, I'm interested in: ${product.name} (${product.sku}) - ${product.price}`;
-            document.getElementById('modal-whatsapp').href = `https://wa.me/919876543210?text=${encodeURIComponent(whatsappMessage)}`;
-            
-            const specsHtml = Object.entries(product.specs).map(([key, value]) => `
-                <div class="flex flex-col">
-                    <span class="text-[11px] uppercase tracking-wider text-text-secondary">${key}</span>
-                    <span class="font-semibold text-text-primary">${value}</span>
+             // Create overlay if not exists
+             const overlay = document.createElement('div');
+             overlay.id = 'search-overlay';
+             overlay.className = 'fixed inset-0 z-[70] bg-white/95 backdrop-blur-lg transition-all duration-300 flex items-center justify-center p-4';
+             overlay.innerHTML = `
+                <div class="max-w-2xl w-full relative">
+                    <button onclick="toggleSearch()" class="absolute -top-16 right-0 size-10 flex items-center justify-center rounded-full bg-surface-alt hover:bg-border transition-all">
+                        <span class="material-symbols-outlined">close</span>
+                    </button>
+                    <div class="relative">
+                        <input type="text" id="search-input-overlay" placeholder="Search SKU, Name..." class="w-full h-16 pl-14 pr-4 rounded-2xl border-2 border-border focus:border-primary outline-none text-xl transition-all bg-surface shadow-xl">
+                        <span class="material-symbols-outlined absolute left-5 top-1/2 -translate-y-1/2 text-text-secondary text-2xl">search</span>
+                    </div>
+                    <p class="text-center mt-4 text-sm text-text-secondary">Press Enter to search</p>
                 </div>
-            `).join('');
-            document.getElementById('modal-specs').innerHTML = specsHtml;
-
-            document.getElementById('product-modal').classList.add('active');
-            document.body.style.overflow = 'hidden';
+             `;
+             document.body.appendChild(overlay);
+             
+             const input = document.getElementById('search-input-overlay');
+             input.focus();
+             
+             input.addEventListener('keypress', function(e) {
+                if(e.key === 'Enter') {
+                    const query = this.value;
+                     const url = new URL(window.location);
+                     url.searchParams.set('search', query);
+                     window.history.pushState({}, '', url);
+                     renderProducts('all', query);
+                     toggleSearch(); // close overlay
+                }
+             });
         }
 
-        function closeModal() {
-            document.getElementById('product-modal').classList.remove('active');
-            document.body.style.overflow = '';
-        }
-
-        // Close modal on backdrop click
-        document.getElementById('product-modal').addEventListener('click', function(e) {
-            if (e.target === this) closeModal();
-        });
-
-        // Close modal on Escape key
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') closeModal();
-        });
 
         // Initialize
-        renderProducts();
+        document.addEventListener('DOMContentLoaded', () => {
+             const searchParams = new URLSearchParams(window.location.search);
+             const search = searchParams.get('search');
+             if(search) {
+                 renderProducts('all', search);
+             } else {
+                 renderProducts();
+             }
+        });
 </script>
 
     <!-- Floating WhatsApp Button -->
