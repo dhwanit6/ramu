@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <title>Shree Vishwakarma Industries - Precision Tools Since 1969</title>
+    <title>Shree Vishwakarma Industry - Precision Tools Since 1969</title>
     <!-- Material Symbols -->
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
     <!-- Google Fonts -->
@@ -98,6 +98,9 @@
             }
         }
         /* Header scrolled state */
+        .header-scrolled {
+            background: rgba(255, 255, 255, 0.98) !important;
+        }
         .header-scrolled .nav-link {
             color: #1a2e23 !important;
             text-shadow: none !important;
@@ -108,6 +111,36 @@
         .header-scrolled .logo-link {
             color: #1a2e23 !important;
             text-shadow: none !important;
+        }
+        
+        /* Modal styles */
+        .modal-backdrop {
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(8px);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        .modal-backdrop.active { 
+            opacity: 1; 
+            visibility: visible; 
+        }
+        .modal-content {
+            transform: scale(0.9) translateY(30px);
+            opacity: 0;
+            transition: all 0.3s cubic-bezier(0.4, 0,0.2, 1);
+        }
+        .modal-backdrop.active .modal-content {
+            transform: scale(1) translateY(0);
+            opacity: 1;
+        }
+        
+        /* Mobile optimization for modal */
+        @media (max-width: 640px) {
+            .modal-content {
+                max-height: 95vh !important;
+                margin: 0.5rem;
+            }
         }
     </style>
 </head>
@@ -121,7 +154,7 @@
             </button>
             <!-- Invisible placeholder for desktop to balance layout -->
             <div class="hidden md:block size-10"></div>
-            <a href="#hero" class="logo-link text-white text-sm font-bold tracking-widest uppercase opacity-90 hover:opacity-100 hover:text-primary transition-all duration-300 drop-shadow-md">Shree Vishwakarma Industries</a>
+            <a href="#hero" class="logo-link text-white text-sm font-bold tracking-widest uppercase opacity-90 hover:opacity-100 hover:text-primary transition-all duration-300 drop-shadow-md">Shree Vishwakarma Industry</a>
             <button id="search-btn" onclick="toggleSearch()" class="flex size-10 items-center justify-center rounded-full bg-white/80 backdrop-blur-md text-text-primary hover:bg-white transition-all duration-300 hover:scale-105 shadow-sm" aria-label="Search">
                 <span class="material-symbols-outlined text-2xl">search</span>
             </button>
@@ -130,7 +163,7 @@
         <nav class="hidden md:flex justify-center gap-8 pb-4 -mt-2">
             <a href="#hero" class="nav-link text-sm text-white/90 hover:text-primary transition-colors duration-300 uppercase tracking-wider font-medium drop-shadow-sm">Home</a>
             <a href="#legacy" class="nav-link text-sm text-white/90 hover:text-primary transition-colors duration-300 uppercase tracking-wider font-medium drop-shadow-sm">Our Legacy</a>
-            <a href="#products" class="nav-link text-sm text-white/90 hover:text-primary transition-colors duration-300 uppercase tracking-wider font-medium drop-shadow-sm">Products</a>
+            <a href="products.html" class="nav-link text-sm text-white/90 hover:text-primary transition-colors duration-300 uppercase tracking-wider font-medium drop-shadow-sm">Products</a>
             <a href="#contact" class="nav-link text-sm text-white/90 hover:text-primary transition-colors duration-300 uppercase tracking-wider font-medium drop-shadow-sm">Contact</a>
         </nav>
     </header>
@@ -218,8 +251,14 @@
                 <!-- Text Content -->
                 <div class="flex flex-col gap-3">
                     <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.1] tracking-tight text-white drop-shadow-lg">
-                        When <span class="text-primary">Precision</span> Matters,<br/>Craftsmen Choose Shree Vishwakarma Industries
+                        When <span class="text-primary">Precision</span> Matters,<br/>Craftsmen Choose Shree Vishwakarma Industry
                     </h1>
+                    <p class="text-sm md:text-base font-bold text-primary uppercase tracking-widest mb-1 opacity-90">
+                        High Quality Premium Screwdriver Manufacturer
+                    </p>
+                    <p class="text-xs md:text-sm font-medium text-white/70 uppercase tracking-widest mb-4">
+                        All Kinds of Gold Smith & Watch Maker Tools
+                    </p>
                     <p class="text-base md:text-lg font-normal leading-relaxed text-gray-300 max-w-[90%]">
                         Trusted by 10,000+ goldsmiths across 20 countries. Hand-finished precision tools with lifetime warranty.
                     </p>
@@ -280,7 +319,7 @@
                 <div class="glass rounded-2xl p-8">
                     <h3 class="text-2xl font-bold mb-4">Our Story</h3>
                     <p class="text-text-secondary text-lg leading-relaxed mb-4">
-                        Shree Vishwakarma Industries fuses tradition with technology. Our story began in 1969 with a single lathe and a vision to create the finest tools in the region. We are dedicated to the art of precision engineer, serving artisans worldwide.
+                        Shree Vishwakarma Industry fuses tradition with technology. Our story began in 1969 with a single lathe and a vision to create the finest tools in the region. We are dedicated to the art of precision engineer, serving artisans worldwide.
                     </p>
                     <p class="text-text-secondary text-lg leading-relaxed">
                         Today, we stand as a beacon of quality. From the hands of master goldsmiths to the kits of precision watchmakers, our tools are the silent partners in creation.
@@ -298,7 +337,7 @@
             </div>
 
             <!-- Values Grid - Premium Design -->
-            <div class="grid md:grid-cols-3 gap-6 mb-20">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 mb-20" id="values-grid">
                 <!-- Durability -->
                 <div class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-emerald-50 to-teal-50 p-5 md:p-8 shadow-lg hover:shadow-xl transition-all duration-500 border border-primary/10">
                     <!-- Background Pattern -->
@@ -314,9 +353,9 @@
                         </div>
                         
                         <!-- Counter/Stat -->
-                        <div class="flex items-baseline gap-1 mb-2">
-                            <span class="stat-counter text-3xl md:text-4xl font-bold text-text-primary" data-target="250">0</span><span class="text-3xl md:text-4xl font-bold text-text-primary">+</span>
-                            <span class="text-text-secondary text-sm font-medium">Happy Customers</span>
+                        <div class="flex flex-wrap items-baseline gap-1 mb-2">
+                            <span class="stat-counter text-2xl md:text-3xl lg:text-4xl font-bold text-text-primary" data-target="250">0</span><span class="text-2xl md:text-4xl font-bold text-text-primary">+</span>
+                            <span class="text-text-secondary text-[10px] md:text-xs font-medium uppercase tracking-wider">Happy Customers</span>
                         </div>
                         
                         <h3 class="text-xl font-bold text-text-primary mb-3">Global Reach</h3>
@@ -339,9 +378,9 @@
                             </svg>
                         </div>
                         
-                        <div class="flex items-baseline gap-1 mb-2">
-                            <span class="stat-counter text-3xl md:text-4xl font-bold text-text-primary" data-target="50000">0</span>
-                            <span class="text-text-secondary text-sm font-medium">Monthly Units</span>
+                        <div class="flex flex-wrap items-baseline gap-1 mb-2">
+                            <span class="stat-counter text-2xl md:text-3xl lg:text-4xl font-bold text-text-primary" data-target="50000">0</span>
+                            <span class="text-text-secondary text-[10px] md:text-xs font-medium uppercase tracking-wider">Monthly Units</span>
                         </div>
                         
                         <h3 class="text-xl font-bold text-text-primary mb-3">High Capacity</h3>
@@ -362,13 +401,53 @@
                             </svg>
                         </div>
                         
-                        <div class="flex items-baseline gap-1 mb-2">
-                            <span class="stat-counter text-3xl md:text-4xl font-bold text-text-primary" data-target="3">0</span>
-                            <span class="text-text-secondary text-sm font-medium">Generations</span>
+                        <div class="flex flex-wrap items-baseline gap-1 mb-2">
+                            <span class="stat-counter text-2xl md:text-3xl lg:text-4xl font-bold text-text-primary" data-target="3">0</span>
+                            <span class="text-text-secondary text-[10px] md:text-xs font-medium uppercase tracking-wider">Generations</span>
                         </div>
                         
                         <h3 class="text-xl font-bold text-text-primary mb-3">Artisan Legacy</h3>
                         <p class="text-text-secondary text-sm leading-relaxed">Three generations of master craftsmen passing down techniques. Traditional artistry meets modern innovation.</p>
+                    </div>
+                </div>
+
+                <!-- Experience -->
+                <div class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-purple-50 to-fuchsia-50 p-5 md:p-8 shadow-lg hover:shadow-xl transition-all duration-500 border border-purple-100">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-purple-500/10 to-transparent rounded-full -translate-y-8 translate-x-8 group-hover:scale-150 transition-transform duration-700"></div>
+                    <div class="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr from-purple-500/5 to-transparent rounded-full translate-y-6 -translate-x-6"></div>
+                    
+                    <div class="relative z-10">
+                        <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-fuchsia-600 rounded-2xl flex items-center justify-center mb-6 shadow-lg shadow-purple-500/30 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
+                            <span class="material-symbols-outlined text-white text-3xl">history</span>
+                        </div>
+                        
+                        <div class="flex flex-wrap items-baseline gap-1 mb-2">
+                            <span class="stat-counter text-2xl md:text-3xl lg:text-4xl font-bold text-text-primary" data-target="56">0</span>
+                            <span class="text-text-secondary text-[10px] md:text-xs font-medium uppercase tracking-wider">Years</span>
+                        </div>
+                        
+                        <h3 class="text-xl font-bold text-text-primary mb-3">Legacy of Service</h3>
+                        <p class="text-text-secondary text-sm leading-relaxed">Working tirelessly from the last 56 years to provide the highest quality precision tools to craftsmen worldwide.</p>
+                    </div>
+                </div>
+
+                <!-- Tolerance -->
+                <div class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-cyan-50 to-teal-50 p-5 md:p-8 shadow-lg hover:shadow-xl transition-all duration-500 border border-cyan-100">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-cyan-500/10 to-transparent rounded-full -translate-y-8 translate-x-8 group-hover:scale-150 transition-transform duration-700"></div>
+                    <div class="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr from-cyan-500/5 to-transparent rounded-full translate-y-6 -translate-x-6"></div>
+                    
+                    <div class="relative z-10">
+                        <div class="w-16 h-16 bg-gradient-to-br from-cyan-500 to-teal-600 rounded-2xl flex items-center justify-center mb-6 shadow-lg shadow-cyan-500/30 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
+                            <span class="material-symbols-outlined text-white text-3xl">biotech</span>
+                        </div>
+                        
+                        <div class="flex flex-wrap items-baseline gap-1 mb-2">
+                            <span class="stat-counter text-2xl md:text-3xl lg:text-4xl font-bold text-text-primary" data-target="0.1">0</span><span class="text-2xl md:text-4xl font-bold text-text-primary">mm</span>
+                            <span class="text-text-secondary text-[10px] md:text-xs font-medium uppercase tracking-wider">Tolerance</span>
+                        </div>
+                        
+                        <h3 class="text-xl font-bold text-text-primary mb-3">Precision Mastery</h3>
+                        <p class="text-text-secondary text-sm leading-relaxed">Maintaining an incredible 0.1mm tolerance across our entire product range, set by rigorous engineering standards.</p>
                     </div>
                 </div>
             </div>
@@ -538,15 +617,21 @@
                 <!-- Card 1: Best Seller -->
                 <div class="group">
                     <div class="flex flex-col rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 bg-surface ring-1 ring-border glow-hover">
-                        <div class="relative w-full aspect-[4/3] overflow-hidden">
+                        <div class="relative w-full aspect-[4/3] overflow-hidden cursor-pointer" onclick="openModal(1)">
                             <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent z-10 opacity-60"></div>
                             <!-- Badge -->
                             <div class="absolute top-4 left-4 z-20 bg-primary backdrop-blur-sm text-white text-xs font-bold px-3 py-1.5 rounded-full uppercase tracking-wider shadow-sm">
                                 Best Seller
                             </div>
                             <div class="w-full h-full bg-center bg-no-repeat bg-cover transform group-hover:scale-105 transition-transform duration-700 ease-out" style='background-image: url("src/images/ram 6.png");'></div>
+                            <!-- View Icon Overlay -->
+                            <div class="absolute inset-0 z-10 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                <div class="size-16 flex items-center justify-center rounded-full bg-white/90 backdrop-blur-sm shadow-2xl">
+                                    <span class="material-symbols-outlined text-primary text-4xl">visibility</span>
+                                </div>
+                            </div>
                             <!-- Favorite Button -->
-                            <button class="absolute bottom-4 right-4 z-20 size-10 flex items-center justify-center rounded-full bg-white/20 hover:bg-white/40 backdrop-blur-md text-white transition-all hover:scale-110">
+                            <button class="absolute bottom-4 right-4 z-20 size-10 flex items-center justify-center rounded-full bg-white/20 hover:bg-white/40 backdrop-blur-md text-white transition-all hover:scale-110" onclick="event.stopPropagation()">
                                 <span class="material-symbols-outlined text-[20px]">favorite</span>
                             </button>
                         </div>
@@ -556,18 +641,16 @@
                                     <p class="text-primary text-xs font-bold uppercase tracking-wider mb-1">SVI - 010</p>
                                     <h3 class="text-text-primary text-xl font-bold leading-tight tracking-tight">Thin Pinvice Single Mouth</h3>
                                 </div>
-                                <div class="text-right">
-                                    <span class="block text-text-primary font-bold text-xl">Rs 4500</span>
-                                </div>
+
                             </div>
                             <div class="flex items-center gap-2 text-text-secondary text-sm">
                                 <span class="material-symbols-outlined text-[16px] text-primary">verified</span>
                                 <span>Engineered for exceptional durability</span>
                             </div>
-                            <a href="products.html" class="w-full cursor-pointer flex items-center justify-center gap-2 rounded-lg h-12 bg-primary hover:bg-primary-dark active:scale-[0.98] transition-all text-white text-sm font-bold uppercase tracking-wide shadow-md shadow-primary/20">
+                            <button onclick="openModal(1)" class="w-full cursor-pointer flex items-center justify-center gap-2 rounded-lg h-12 bg-primary hover:bg-primary-dark active:scale-[0.98] transition-all text-white text-sm font-bold uppercase tracking-wide shadow-md shadow-primary/20">
                                 <span>View Product</span>
                                 <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
-                            </a>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -575,14 +658,20 @@
                 <!-- Card 2: New Arrival -->
                 <div class="group">
                     <div class="flex flex-col rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 bg-surface ring-1 ring-border glow-hover">
-                        <div class="relative w-full aspect-[4/3] overflow-hidden">
+                        <div class="relative w-full aspect-[4/3] overflow-hidden cursor-pointer" onclick="openModal(2)">
                             <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent z-10 opacity-60"></div>
                             <!-- Badge -->
                             <div class="absolute top-4 left-4 z-20 bg-white/10 backdrop-blur-sm text-black text-xs font-bold px-3 py-1.5 rounded-full uppercase tracking-wider border border-white/20">
                                 New Arrival
                             </div>
                             <div class="w-full h-full bg-center bg-no-repeat bg-cover transform group-hover:scale-105 transition-transform duration-700 ease-out" style='background-image: url("src/images/ram\ 2.png");'></div>
-                            <button class="absolute bottom-4 right-4 z-20 size-10 flex items-center justify-center rounded-full bg-white/20 hover:bg-white/40 backdrop-blur-md text-white transition-all hover:scale-110">
+                            <!-- View Icon Overlay -->
+                            <div class="absolute inset-0 z-10 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                <div class="size-16 flex items-center justify-center rounded-full bg-white/90 backdrop-blur-sm shadow-2xl">
+                                    <span class="material-symbols-outlined text-primary text-4xl">visibility</span>
+                                </div>
+                            </div>
+                            <button class="absolute bottom-4 right-4 z-20 size-10 flex items-center justify-center rounded-full bg-white/20 hover:bg-white/40 backdrop-blur-md text-white transition-all hover:scale-110" onclick="event.stopPropagation()">
                                 <span class="material-symbols-outlined text-[20px]">favorite</span>
                             </button>
                         </div>
@@ -592,17 +681,15 @@
                                     <p class="text-primary text-xs font-bold uppercase tracking-wider mb-1">SVI - 013</p>
                                     <h3 class="text-text-primary text-xl font-bold leading-tight tracking-tight">Heavy Screwdriver Blade V Shape</h3>
                                 </div>
-                                <div class="text-right">
-                                    <span class="block text-text-primary font-bold text-xl">Rs 6000</span>
-                                </div>
+
                             </div>
                             <div class="flex items-center gap-2 text-text-secondary text-sm">
                                 <span class="material-symbols-outlined text-[16px] text-primary">balance</span>
                                 <span>Perfect balance for delicate crafting</span>
                             </div>
-                            <a href="products.html" class="w-full cursor-pointer flex items-center justify-center gap-2 rounded-lg h-12 bg-surface-alt hover:bg-border border border-border active:scale-[0.98] transition-all text-text-primary text-sm font-bold uppercase tracking-wide">
+                            <button onclick="openModal(2)" class="w-full cursor-pointer flex items-center justify-center gap-2 rounded-lg h-12 bg-surface-alt hover:bg-border border border-border active:scale-[0.98] transition-all text-text-primary text-sm font-bold uppercase tracking-wide">
                                 <span>View Product</span>
-                            </a>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -610,14 +697,20 @@
                 <!-- Card 3: Editor's Choice -->
                 <div class="group md:col-span-2 lg:col-span-1">
                     <div class="flex flex-col rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 bg-surface ring-1 ring-border glow-hover">
-                        <div class="relative w-full aspect-[4/3] overflow-hidden">
+                        <div class="relative w-full aspect-[4/3] overflow-hidden cursor-pointer" onclick="openModal(3)">
                             <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent z-10 opacity-60"></div>
                             <!-- Badge -->
                             <div class="absolute top-4 left-4 z-20 bg-purple-500/90 text-white text-xs font-bold px-3 py-1.5 rounded-full uppercase tracking-wider shadow-sm">
                                 Editor's Choice
                             </div>
                             <div class="w-full h-full bg-center bg-no-repeat bg-cover transform group-hover:scale-105 transition-transform duration-700 ease-out" style='background-image: url("src/images/ram\ 1.png");'></div>
-                            <button class="absolute bottom-4 right-4 z-20 size-10 flex items-center justify-center rounded-full bg-white/20 hover:bg-white/40 backdrop-blur-md text-white transition-all hover:scale-110">
+                            <!-- View Icon Overlay -->
+                            <div class="absolute inset-0 z-10 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                <div class="size-16 flex items-center justify-center rounded-full bg-white/90 backdrop-blur-sm shadow-2xl">
+                                    <span class="material-symbols-outlined text-primary text-4xl">visibility</span>
+                                </div>
+                            </div>
+                            <button class="absolute bottom-4 right-4 z-20 size-10 flex items-center justify-center rounded-full bg-white/20 hover:bg-white/40 backdrop-blur-md text-white transition-all hover:scale-110" onclick="event.stopPropagation()">
                                 <span class="material-symbols-outlined text-[20px]">favorite</span>
                             </button>
                         </div>
@@ -627,17 +720,15 @@
                                     <p class="text-primary text-xs font-bold uppercase tracking-wider mb-1">SVI - 012</p>
                                     <h3 class="text-text-primary text-xl font-bold leading-tight tracking-tight">Plastic Revolving Stand</h3>
                                 </div>
-                                <div class="text-right">
-                                    <span class="block text-text-primary font-bold text-xl">Rs 1500</span>
-                                </div>
+
                             </div>
                             <div class="flex items-center gap-2 text-text-secondary text-sm">
                                 <span class="material-symbols-outlined text-[16px] text-primary">bolt</span>
                                 <span>Maximum torque with zero slip</span>
                             </div>
-                            <a href="products.html" class="w-full cursor-pointer flex items-center justify-center gap-2 rounded-lg h-12 bg-surface-alt hover:bg-border border border-border active:scale-[0.98] transition-all text-text-primary text-sm font-bold uppercase tracking-wide">
+                            <button onclick="openModal(3)" class="w-full cursor-pointer flex items-center justify-center gap-2 rounded-lg h-12 bg-surface-alt hover:bg-border border border-border active:scale-[0.98] transition-all text-text-primary text-sm font-bold uppercase tracking-wide">
                                 <span>View Product</span>
-                            </a>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -648,6 +739,49 @@
                 <div class="h-px w-16 bg-border"></div>
                 <span class="mx-4 text-xs uppercase tracking-widest text-text-secondary font-semibold">Precision Legacy</span>
                 <div class="h-px w-16 bg-border"></div>
+            </div>
+        </div>
+        
+        <!-- Product Modal -->
+        <div id="product-modal" class="modal-backdrop fixed inset-0 z-[100] flex items-center justify-center p-2 sm:p-4">
+            <div class="modal-content bg-surface rounded-2xl shadow-2xl max-w-2xl w-full max-h-[92vh] sm:max-h-[90vh] overflow-y-auto">
+                <!-- Modal Header -->
+                <div class="relative">
+                    <div class="aspect-square sm:aspect-[4/3] bg-surface-alt rounded-t-2xl overflow-hidden flex items-center justify-center p-4">
+                        <img id="modal-image" src="" alt="" class="w-full h-full object-contain">
+                    </div>
+                    <button onclick="closeModal()" class="absolute top-3 right-3 sm:top-4 sm:right-4 size-9 sm:size-10 flex items-center justify-center rounded-full bg-white/90 hover:bg-white text-text-primary transition-all shadow-lg">
+                        <span class="material-symbols-outlined text-xl">close</span>
+                    </button>
+                    <div id="modal-badge" class="absolute top-3 left-3 sm:top-4 sm:left-4 bg-primary text-white text-[10px] sm:text-xs font-bold px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full uppercase tracking-wider shadow-sm"></div>
+                </div>
+                <!-- Modal Body -->
+                <div class="p-4 sm:p-6 md:p-8">
+                    <div class="flex flex-col gap-2 mb-3 sm:mb-4">
+                        <p id="modal-sku" class="text-primary text-xs font-bold uppercase tracking-wider"></p>
+                        <h2 id="modal-name" class="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-text-primary"></h2>
+                    </div>
+                    <p id="modal-description" class="text-text-secondary text-sm sm:text-base leading-relaxed mb-5 sm:mb-6"></p>
+                    
+                    <!-- Specifications -->
+                    <div class="border-t border-border pt-4 sm:pt-6 mb-5 sm:mb-6">
+                        <h3 class="text-xs sm:text-sm font-bold uppercase tracking-wider text-text-secondary mb-3 sm:mb-4">Specifications</h3>
+                        <div id="modal-specs" class="grid grid-cols-1 gap-2.5 sm:gap-3">
+                            <!-- Specs injected by JS -->
+                        </div>
+                    </div>
+
+                    <!-- CTA Buttons - Mobile Optimized -->
+                    <div class="flex flex-col gap-2.5 sm:gap-3">
+                        <a id="modal-whatsapp" href="#" target="_blank" class="flex h-11 sm:h-12 md:h-14 items-center justify-center gap-2 rounded-xl bg-[#25D366] hover:bg-[#20BA5C] text-white text-xs sm:text-sm font-bold uppercase tracking-wide transition-all shadow-md">
+                            <svg class="w-4 h-4 sm:size-5" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                            <span>Enquire on WhatsApp</span>
+                        </a>
+                        <button onclick="closeModal()" class="flex h-11 sm:h-12 md:h-14 items-center justify-center gap-2 rounded-xl bg-surface-alt hover:bg-border border border-border text-text-primary text-xs sm:text-sm font-bold uppercase tracking-wide transition-all">
+                            <span>Continue Browsing</span>
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -870,7 +1004,7 @@
             <!-- Contact Cards Grid -->
             <div class="grid md:grid-cols-3 gap-6 mt-16 max-w-5xl mx-auto">
                 <!-- Phone Card -->
-                <a href="tel:+919426833371" class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-primary/10 to-emerald-50 p-5 sm:p-6 border border-primary/20 hover:shadow-xl transition-all duration-500 hover:-translate-y-1">
+                <a href="tel:+91 93288 33371" class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-primary/10 to-emerald-50 p-5 sm:p-6 border border-primary/20 hover:shadow-xl transition-all duration-500 hover:-translate-y-1">
                     <div class="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-primary/20 to-transparent rounded-full -translate-y-8 translate-x-8 group-hover:scale-150 transition-transform duration-700"></div>
                     <div class="relative z-10">
                         <div class="w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-br from-primary to-emerald-600 rounded-2xl flex items-center justify-center mb-4 sm:mb-5 shadow-lg shadow-primary/30 group-hover:scale-110 transition-transform">
@@ -879,13 +1013,13 @@
                             </svg>
                         </div>
                         <h4 class="font-bold text-base sm:text-lg text-text-primary mb-2">Call Us</h4>
-                        <p class="text-primary font-bold text-lg sm:text-xl mb-1">+91 94268 33371</p>
+                        <p class="text-primary font-bold text-lg sm:text-xl mb-1">+91 93288 33371</p>
                         <p class="text-text-secondary text-sm sm:text-base">Mon-Sat: 9AM - 7PM IST</p>
                     </div>
                 </a>
 
                 <!-- Location Card -->
-                <a href="https://maps.google.com/?q=Vishwakarma+Industries+Gujarat" target="_blank" class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-blue-50 to-indigo-50 p-5 sm:p-6 border border-blue-100 hover:shadow-xl transition-all duration-500 hover:-translate-y-1">
+                <a href="https://maps.google.com/?q=Shree+Vishwakarma+industry+Paddhari" target="_blank" class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-blue-50 to-indigo-50 p-5 sm:p-6 border border-blue-100 hover:shadow-xl transition-all duration-500 hover:-translate-y-1">
                     <div class="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-blue-200/50 to-transparent rounded-full -translate-y-8 translate-x-8 group-hover:scale-150 transition-transform duration-700"></div>
                     <div class="relative z-10">
                         <div class="w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl flex items-center justify-center mb-4 sm:mb-5 shadow-lg shadow-blue-500/30 group-hover:scale-110 transition-transform">
@@ -895,13 +1029,13 @@
                             </svg>
                         </div>
                         <h4 class="font-bold text-base sm:text-lg text-text-primary mb-2">Visit Us</h4>
-                        <p class="text-text-primary font-medium text-sm sm:text-base mb-1">Vishwakarma Industries</p>
-                        <p class="text-text-secondary text-sm sm:text-base">Industrial Area, Gujarat, India</p>
+                        <p class="text-text-primary font-medium text-sm sm:text-base mb-1 text-wrap">Pati Rampar, Paddhari, Rajkot</p>
+                        <p class="text-text-secondary text-sm sm:text-base">Gujarat, India</p>
                     </div>
                 </a>
 
                 <!-- Email Card -->
-                <a href="mailto:info@shreevishwakarmaindustries.com" class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-amber-50 to-orange-50 p-5 sm:p-6 border border-amber-100 hover:shadow-xl transition-all duration-500 hover:-translate-y-1">
+                <a href="mailto:info@shreevishwakarmaindustry.com" class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-amber-50 to-orange-50 p-5 sm:p-6 border border-amber-100 hover:shadow-xl transition-all duration-500 hover:-translate-y-1">
                     <div class="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-amber-200/50 to-transparent rounded-full -translate-y-8 translate-x-8 group-hover:scale-150 transition-transform duration-700"></div>
                     <div class="relative z-10">
                         <div class="w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-br from-amber-500 to-orange-600 rounded-2xl flex items-center justify-center mb-4 sm:mb-5 shadow-lg shadow-amber-500/30 group-hover:scale-110 transition-transform">
@@ -909,16 +1043,40 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
                             </svg>
                         </div>
-                        <h4 class="font-bold text-base sm:text-lg text-text-primary mb-2">Email Us</h4>
-                        <p class="text-amber-600 font-medium text-sm sm:text-base mb-1">info@shreevishwakarmaindustries.com</p>
-                        <p class="text-text-secondary text-sm sm:text-base">We reply within 24 hours</p>
+                        <h4 class="font-bold text-base sm:text-lg text-text-primary mb-2 text-wrap break-words">Email Us</h4>
+                        <p class="text-amber-600 font-medium text-xs sm:text-sm lg:text-base mb-1 break-all">info@shreevishwakarmaindustry.com</p>
+                        <p class="text-text-secondary text-xs sm:text-sm">We reply within 24 hours</p>
                     </div>
                 </a>
             </div>
 
+            <!-- Google Map Embed -->
+            <div class="mt-16 rounded-3xl overflow-hidden shadow-2xl border-4 border-white">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3972.3973727856733!2d70.6003131!3d22.3914403!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3959db004edb9033%3A0x46474088d353595c!2sShree%20Vishwakarma%20industry!5e1!3m2!1sen!2sin!4v1766570608575!5m2!1sen!2sin" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+
+            <!-- Social Media Links -->
+            <div class="mt-12 flex flex-col items-center gap-6">
+                <h3 class="text-xl font-bold text-text-primary">Connect With Us</h3>
+                <div class="flex flex-wrap justify-center gap-4">
+                    <a href="https://www.linkedin.com/company/shree-vishwakarma-industry/" target="_blank" class="size-12 rounded-full bg-[#0077b5] text-white flex items-center justify-center hover:scale-110 transition-transform shadow-lg">
+                        <svg class="size-6" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.761 0 5-2.239 5-5v-14c0-2.761-2.239-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                    </a>
+                    <a href="https://www.facebook.com/share/17reXTK7bo/" target="_blank" class="size-12 rounded-full bg-[#1877f2] text-white flex items-center justify-center hover:scale-110 transition-transform shadow-lg">
+                        <svg class="size-6" fill="currentColor" viewBox="0 0 24 24"><path d="M22.675 0h-21.35c-.732 0-1.325.593-1.325 1.325v21.351c0 .731.593 1.324 1.325 1.324h11.495v-8.778h-2.954v-3.422h2.954v-2.524c0-2.927 1.787-4.52 4.398-4.52 1.251 0 2.327.093 2.639.135v3.06h-1.811c-1.42 0-1.696.675-1.696 1.666v2.183h3.389l-.441 3.422h-2.948v8.778h6.09c.733 0 1.325-.592 1.325-1.324v-21.351c0-.732-.592-1.325-1.325-1.325z"/></svg>
+                    </a>
+                    <a href="https://www.instagram.com/shreevishwakarmaindustry?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" class="size-12 rounded-full bg-gradient-to-tr from-[#f9ce34] via-[#ee2a7b] to-[#6228d7] text-white flex items-center justify-center hover:scale-110 transition-transform shadow-lg">
+                        <svg class="size-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                    </a>
+                    <a href="https://youtube.com/@shreevishwakarmaindustry?si=Apd6MwdQwNZ8aqlG" target="_blank" class="size-12 rounded-full bg-[#ff0000] text-white flex items-center justify-center hover:scale-110 transition-transform shadow-lg">
+                        <svg class="size-6" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.377.505 9.377.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                    </a>
+                </div>
+            </div>
+
             <!-- Copyright -->
             <p class="text-text-secondary text-sm mt-16">
-                © 2024 Shree Vishwakarma Industries. All rights reserved. | Precision Since 1969
+                © 2025 Shree Vishwakarma Industry. All rights reserved. | Precision Since 1969
             </p>
         </div>
     </section>
@@ -1013,9 +1171,10 @@
         let hasAnimated = false;
 
         function animateCounter(el) {
-            const target = parseInt(el.dataset.target);
+            const target = parseFloat(el.dataset.target);
             const duration = 2000; // 2 seconds
             const startTime = performance.now();
+            const isDecimal = el.dataset.target.includes('.');
             
             function easeOutQuart(x) {
                 return 1 - Math.pow(1 - x, 4);
@@ -1025,20 +1184,23 @@
                 const elapsed = currentTime - startTime;
                 const progress = Math.min(elapsed / duration, 1);
                 const easedProgress = easeOutQuart(progress);
-                const current = Math.floor(easedProgress * target);
+                const current = easedProgress * target;
                 
-                // Format large numbers with commas
-                if (target >= 1000) {
-                    el.textContent = current.toLocaleString('en-IN');
+                let displayValue;
+                if (isDecimal) {
+                    displayValue = current.toFixed(1);
                 } else {
-                    el.textContent = current;
+                    const val = Math.floor(current);
+                    displayValue = target >= 1000 ? val.toLocaleString('en-IN') : val;
                 }
+                
+                el.textContent = displayValue;
 
                 if (progress < 1) {
                     requestAnimationFrame(update);
                 } else {
                     // Ensure final value is exact
-                    el.textContent = target >= 1000 ? target.toLocaleString('en-IN') : target;
+                    el.textContent = isDecimal ? target.toFixed(1) : (target >= 1000 ? target.toLocaleString('en-IN') : target);
                 }
             }
             
@@ -1056,10 +1218,104 @@
         }, { threshold: 0.3 });
 
         // Observe the stats section
-        const statsGrid = document.querySelector('.grid.md\\:grid-cols-3.gap-6.mb-20');
+        const statsGrid = document.getElementById('values-grid');
         if (statsGrid) {
             statsObserver.observe(statsGrid);
         }
+        
+        // === PRODUCT MODAL FUNCTIONALITY ===
+        const products = [
+            {
+                id: 1,
+                sku: "SVI-010",
+                name: "Thin Pinvice Single Mouth",
+                badge: "Best Seller",
+                image: "src/images/ram 6.png",
+                description: "Professional-grade thin pinvice designed for precision work. Features a single mouth grip system for secure holding of fine materials.",
+                specs: {
+                    "Material": "Hardened Steel",
+                    "Grip Type": "Single Mouth",
+                    "Use Case": "Watchmaking, Jewelry",
+                    "Warranty": "Lifetime"
+                }
+            },
+            {
+                id: 2,
+                sku: "SVI-013",
+                name: "Heavy Screwdriver Blade V Shape",
+                badge: "New Arrival",
+                image: "src/images/ram 2.png",
+                description: "Heavy-duty screwdriver with V-shaped blade for maximum torque. Perfect for demanding industrial applications.",
+                specs: {
+                    "Material": "Chrome Vanadium",
+                    "Blade Type": "V Shape",
+                    "Use Case": "Industrial",
+                    "Warranty": "Lifetime"
+                }
+            },
+            {
+                id: 3,
+                sku: "SVI-012",
+                name: "Plastic Revolving Stand",
+                badge: "Editor's Choice",
+                image: "src/images/ram 1.png",
+                description: "Convenient revolving stand for organizing your precision tools. Keeps your workspace tidy and tools accessible.",
+                specs: {
+                    "Material": "High-Grade Plastic",
+                    "Rotation": "360°",
+                    "Capacity": "12 Tools",
+                    "Base Type": "Non-slip"
+                }
+            }
+        ];
+        
+        function openModal(productId) {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+            
+            // Populate modal content
+            document.getElementById('modal-image').src = product.image;
+            document.getElementById('modal-image').alt = product.name;
+            document.getElementById('modal-badge').textContent = product.badge || '';
+            document.getElementById('modal-badge').style.display = product.badge ? 'block' : 'none';
+            document.getElementById('modal-sku').textContent = product.sku;
+            document.getElementById('modal-name').textContent = product.name;
+            document.getElementById('modal-description').textContent = product.description;
+            
+            // Populate specs
+            const specsContainer = document.getElementById('modal-specs');
+            specsContainer.innerHTML = Object.entries(product.specs || {}).map(([key, value]) => `
+                <div class="flex items-start gap-2 text-sm">
+                    <span class="material-symbols-outlined text-primary text-base sm:text-lg flex-shrink-0 mt-0.5">check_circle</span>
+                    <span class="text-text-secondary"><strong class="text-text-primary">${key}:</strong> ${value}</span>
+                </div>
+            `).join('');
+            
+            // Set WhatsApp link
+            const whatsappMsg = encodeURIComponent(`Hi Shree Vishwakarma Industry, I'm interested in ${product.name} (${product.sku})`);
+            document.getElementById('modal-whatsapp').href = `https://wa.me/919426833371?text=${whatsappMsg}`;
+            
+            // Show modal
+            document.getElementById('product-modal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeModal() {
+            document.getElementById('product-modal').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+        
+        // Close modal on backdrop click
+        document.getElementById('product-modal')?.addEventListener('click', function(e) {
+            if (e.target === this) closeModal();
+        });
+        
+        // Close modal on Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && document.getElementById('product-modal').classList.contains('active')) {
+                closeModal();
+            }
+        });
     </script>
 
     <!-- Floating WhatsApp Button -->
